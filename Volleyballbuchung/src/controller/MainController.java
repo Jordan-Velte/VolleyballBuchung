@@ -1,32 +1,80 @@
 package controller;
-import model.*;
 import view.Output;
-import java.util.ArrayList;
-import controller.*;
 
 public class MainController{
+    BuchungController bc;
+    GruppeController gc;
+    VolleyballplatzController vc;
+    Output o = new Output();
+    /*
     ArrayList<Gruppe> gruppe = new ArrayList<Gruppe>();
     ArrayList<Volleyballplatz> volleyballplatz = new ArrayList<Volleyballplatz>();
-
+    */
     public MainController(){
-        Output o = new Output();
-        BuchungController bc = new BuchungController(this);
-        GruppeController gc = new GruppeController(this);
-        Volleyballplatz vpc = new Volleyballplatz(this);
+        setBc(new BuchungController(this));
+        setGc(new GruppeController(this));
+        setVc(new VolleyballplatzController(this));
+        createDemoData();
+        printDemodata();
+
+
     }
-    
-    public void demoData(){
-        Gruppe g1 = new Gruppe(2, "Friedrich", "Ebert");
-        Gruppe g2 = new Gruppe(4, "Zet", "Man");
-        gruppe.add(g1);
-        gruppe.add(g2);
-        Volleyballplatz v1 = new Volleyballplatz(321, "gut", 6);
-        Volleyballplatz v2 = new Volleyballplatz(12, "schlecht", 2);
-        volleyballplatz.add(v1);
-        volleyballplatz.add(v2);
-        Buchung b1 = new Buchung(gruppe.get(0), volleyballplatz.get(0), 120);
-        Buchung b2 = new Buchung(gruppe.get(1), volleyballplatz.get(1), 60);
-        buchung.add(b1);
-        buchung.add(b2);
+    //Ruft MainController immer alle Methoden von anderen Controllern auf?
+    public void createDemoData(){
+        getGc().createGruppeData();
+        getVc().createVolleyballplatz();
+        //Muss als letztes erstellt werden, weil sonst index out of bounds (siehe Instanzverweise)!
+        getBc().createBuchungData();
     }
+    public void printDemodata(){
+        getGc().printGruppe();
+        getVc().printGruppe();
+    }
+
+    //Setter & Getter
+    public void setBc(BuchungController bc) {
+        this.bc = bc;
+    }
+    public void setGc(GruppeController gc) {
+        this.gc = gc;
+    }
+    public void setO(Output o) {
+        this.o = o;
+    }
+    public void setVc(VolleyballplatzController vc) {
+        this.vc = vc;
+    }
+    public BuchungController getBc() {
+        return bc;
+    }
+    public GruppeController getGc() {
+        return gc;
+    }
+    public Output getO() {
+        return o;
+    }
+    public VolleyballplatzController getVc() {
+        return vc;
+    }
+
 }
+
+//Kommentar von Nils: 
+      /*
+        Du hast einen MainController und in dem erstellst du dann den Output, den Buchungscontroller, den VolleyballplatzController und den Gruppencontroller.
+        */
+
+        /*
+        Für Jordan:
+        Er hat sich übrigens dazu entschieden die Unterstriche zu ändern(er meinte das magst du nicht)
+        Neue Controller wie BC oder VC im Constructor des MainControllers erstellen.
+        Dafür die Controller, um sie zwischenspeichern zu können, als Klassenvariablen speichern.
+        BuchungsController b als Klassenvariable bc setten
+        Jetzt wird es in den andreren Klassen so eingerichtet, dass man man den MainController im BuchungsController hat und andersherum
+        Im Constructor muss man das this schreiben, da er sich selbst übergeben muss
+        Dann erstellen wir Demodaten in den jeweiligen Controllern dafür 
+        Mann muss die Sachen in ArrayLists speichern, da man dann später bei den Buchungen darauf zugreifen soll
+        Achso keine Ahnung ob du das hast aber keine String für Volleyballplatz und so machen in der Buchungsklasse, wurde angeschrien dafür :(
+        
+        
+        */
