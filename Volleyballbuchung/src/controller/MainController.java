@@ -28,7 +28,7 @@ public class MainController{
     }
     public void printDemodata(){
         getGc().printGruppe();
-        getVc().printGruppe();
+        getVc().printVolleyballplatz();
     }
 
     //Setter & Getter

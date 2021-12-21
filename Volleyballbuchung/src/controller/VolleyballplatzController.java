@@ -18,7 +18,7 @@ public class VolleyballplatzController {
         volleyballplatz.add(v1);
         volleyballplatz.add(v2);
     }
-    public void printGruppe(){
+    public void printVolleyballplatz(){
         for(Volleyballplatz v : getVolleyballplatz()){
             getMc().getO().printData("Volleyballplatz Nummer: " + v.getNummer() + ", Zustand: " + v.getZustand());
         }
